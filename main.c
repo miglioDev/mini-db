@@ -46,8 +46,9 @@ int main(int argc, char *argv[])
         printf("\n=== MAIN MENU ===\n");
         printf("\n1) Enter new book");
         printf("\n2) Search book");
-        printf("\n3) Database stats");
-        printf("\n4) Exit\n\n");
+        printf("\n3) Update book");
+        printf("\n4) Database stats");
+        printf("\n5) Exit\n\n");
 
         scanf("%d",&menu);
 
@@ -64,15 +65,19 @@ int main(int argc, char *argv[])
                 break;
             }
             
-            //add modify book based on ID
-            
             case 3:
+            {
+                //modifiy book func(fp);
+                break;
+            }
+            
+            case 4:
             {
                 print_database_stats(fp);
                 break;
             }
             
-            case 4:
+            case 5:
             {
                 printf("\nClosing the program, Goodbye!\n");
                 exit(EXIT_SUCCESS);
@@ -93,6 +98,7 @@ int main(int argc, char *argv[])
 
 
 // Menu func: 
+// op1
 void add_book(FILE *fp)
 {
     char buffer[DIM];
@@ -122,6 +128,7 @@ void add_book(FILE *fp)
     return;
 }
 
+//op2
 void search_book(FILE *fp)
 {
     int id,flag;
@@ -154,6 +161,25 @@ void search_book(FILE *fp)
     }
 }
 
+//op3
+void update_book(FILE *fp)
+{
+    int id,flag;
+    char tmp_name[DIM];
+    char tmp_author[DIM];
+
+    printf("\n\n=== Update book ===");
+    printf("\nEnter book id: ");
+    fscanf("%d",&id);
+
+    flag = 0;
+    while (fscanf(fp, "%d %39s %39s", &id, tmp_name, tmp_author) == 3 && !flag) {
+        // update the book or remove from dtb
+    }
+
+}
+
+// op4 Data base stats section and list function
 LINK new_node()
 {
     LINK d = malloc(sizeof(node));
@@ -162,6 +188,18 @@ LINK new_node()
         exit(EXIT_FAILURE);
     }
     return d;
+}
+
+void free_list(LINK *lis)
+{
+    LINK tmp;
+
+    while(*lis != NULL)
+    {
+        tmp = *lis;
+        *lis = (*(lis))->next;
+        free(tmp);
+    }
 }
 
 void print_database_stats(FILE *fp)
@@ -211,6 +249,6 @@ void print_database_stats(FILE *fp)
 
 
 
-    //free the linked list
+    free_list(head);
 }
 
