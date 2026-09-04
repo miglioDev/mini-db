@@ -19,7 +19,7 @@ typedef struct node{
 typedef struct node *LINK;
 
 
-//proto for main
+//proto 
 void add_book(FILE *fp);
 void search_book(FILE *fp);
 void print_database_stats(FILE *fp);
@@ -172,11 +172,16 @@ void update_book(FILE *fp)
     printf("\nEnter book id: ");
     fscanf("%d",&id);
 
+    int temp_ID;
     flag = 0;
-    while (fscanf(fp, "%d %39s %39s", &id, tmp_name, tmp_author) == 3 && !flag) {
-        // update the book or remove from dtb
+    while (fscanf(fp, "%d %39s %39s", &temp_ID, tmp_name, tmp_author) == 3 && !flag) {
+        if(temp_ID == id) {
+            printf("\n== Book found ==\n");
+            printf("\nName: %s",tmp_name);
+            printf("\nSurname: %s\n",tmp_author);
+            // update or remove book feature 
+        }
     }
-
 }
 
 // op4 Data base stats section and list function
